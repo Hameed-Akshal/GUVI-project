@@ -36,7 +36,7 @@ pipeline {
 		stage('Push') {
 
 			steps {
-				sh 'docker push bharathirajatut/nodeapp:latest'
+				sh 'docker push hameedakshal/projectguvi:latest'
 			}
 		}
     }
