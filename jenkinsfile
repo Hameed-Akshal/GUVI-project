@@ -1,30 +1,54 @@
+def img
 pipeline {
-agent any
-stages {
-	stage('Build') {
-		steps {
-			sh 'echo "building the repo"'
-			sh 'docker build -t demoapp:latest .'
-		}
-		}
-	
-	}
+    environment {
+        registry = "hameedakshal/projectguvi" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+        registryCredential = 'docker-hub-login'
+        dockerImage = ''
+    }
+    agent any
+    
+    stages{
+        stage('build checkout'){
+            steps{
+                git 'https://github.com/Hameed-Akshal/GUVI-project.git'
+            }
+        }
+        
+        
+        stage('build image'){
+            steps{
+                script{
+                     sh 'cd ./'
+                     img = registry + ":${env.BUILD_ID}"
+                     println ("${img}")
+                     dockerImage = docker.build("${img}")
+                }
+            }
+        }
+        
+        stage('Push To DockerHub') {
+            steps {
+                script {
+                    docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
+}
 
-// 	stage('push image to repo') {
-// 	steps {
-// 		sh 'python3 app.py'
-// 		input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
-// 	}
-// 	}
 
-// 	stage('Deploy')
-// 	{
-// 	steps {
-// 		echo "deploying the application"
-// 		sh "sudo nohup python3 app.py > log.txt 2>&1 &"
-// 	}
-// 	}
-// }
+
+
+
+
+
+
+
+
+
+
 
 // post {
 // 		always {
@@ -39,3 +63,19 @@ stages {
 // 		}
 // 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
