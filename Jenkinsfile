@@ -19,6 +19,7 @@ pipeline {
             steps{
                 script{
                      sh 'cd ./'
+// 		     sh 'docker push hameedakshal/projectguvi:latest'
                      img = registry + ":${env.BUILD_ID}"
                      println ("${img}")
                      dockerImage = docker.build("${img}")
@@ -36,7 +37,7 @@ pipeline {
 		stage('Push') {
 
 			steps {
-				sh 'docker push hameedakshal/projectguvi:latest'
+				sh 'docker push'
 			}
 		}
     }
