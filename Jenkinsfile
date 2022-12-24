@@ -34,11 +34,15 @@ pipeline {
 			}
 		}
 
-		stage('Push') {
-
-			steps {
-				sh 'docker push'
+		stage('Push'){
+		    steps{
+			script{
+			     dockerImage.push()
+			
+// 				docker.withRegistry('https://registry.hub.docker.com ', registryCredential ) {
+// 					dockerImage.push()
+// 				}
 			}
-		}
+		    }
     }
 }
