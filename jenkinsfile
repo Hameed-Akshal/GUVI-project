@@ -1,0 +1,41 @@
+pipeline {
+agent any
+stages {
+	stage('Build') {
+		steps {
+			sh 'echo "building the repo"'
+			sh 'docker build -t demoapp:latest .'
+		}
+		}
+	
+	}
+
+// 	stage('push image to repo') {
+// 	steps {
+// 		sh 'python3 app.py'
+// 		input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
+// 	}
+// 	}
+
+// 	stage('Deploy')
+// 	{
+// 	steps {
+// 		echo "deploying the application"
+// 		sh "sudo nohup python3 app.py > log.txt 2>&1 &"
+// 	}
+// 	}
+// }
+
+// post {
+// 		always {
+// 			echo 'The pipeline completed'
+// 		}
+// 		success {				
+// 			echo "successfully pushed to dockerhub"
+// 		}
+// 		failure {
+// 			echo 'Build stage failed'
+// 			error('Stopping early…')
+// 		}
+// 	}
+}
