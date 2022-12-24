@@ -23,26 +23,23 @@ pipeline {
                      img = registry + ":${env.BUILD_ID}"
                      println ("${img}")
                      dockerImage = docker.build("${img}")
+		     sh "docker build -t ${img} ."
                 }
             }
         }
         
         stage('Login') {
-
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
+		steps {
+			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 		}
+	}
 
-		stage('Push'){
-		    steps{
-			script{
-			     dockerImage.push()
-			
-// 				docker.withRegistry('https://registry.hub.docker.com ', registryCredential ) {
-// 					dockerImage.push()
-// 				}
-			}
-		    }
+	stage('Push'){
+	    steps{
+		script{
+		     sh "docker push -t ${img}"
+		}
+	    }
+	}
     }
 }
