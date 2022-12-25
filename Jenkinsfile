@@ -18,7 +18,7 @@ pipeline {
         stage('build image'){
             steps{
                 script{
-                     sh 'cd ./'
+//                      sh 'cd ./'
 // 		     sh 'docker push hameedakshal/projectguvi:latest'
                      img = registry + ":${env.BUILD_ID}"
                      println ("${img}")
