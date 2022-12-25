@@ -1,9 +1,8 @@
 def img
 pipeline {
     environment {
-        registry = "hameedakshal/projectguvi" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
+        registry = "hameedakshal/projectguvi"
         DOCKERHUB_CREDENTIALS=credentials('docker-hub-login')
-        dockerImage = ''
     }
     agent any
     
@@ -18,20 +17,19 @@ pipeline {
         stage('build image'){
             steps{
                 script{
-//                      sh 'cd ./'
-// 		     sh 'docker push hameedakshal/projectguvi:latest'
                      img = registry + ":${env.BUILD_ID}"
                      println ("${img}")
-//                      dockerImage = docker.build("${img}")
 		     sh "docker build -t ${img} ."
                 }
             }
         }
         
-        stage('Login') {
-		steps {
-			sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        stage('Login'){
+	    steps{
+		script{
+		     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 		}
+	    }
 	}
 
 	stage('Push'){
