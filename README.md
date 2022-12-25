@@ -34,7 +34,13 @@ CMD \[ “python3”, “-m”, ”flask” , “run” , “--host=0.0.0.0”]
 ```
 Used python 3.8 version and chose slim-buster in order to reduce the size of the docker images. This can help us deploy the docker image faster. Created a working directory as ‘/python-docker’. Copied only requirements.txt because docker images are built layer by layer. Whenever the bottom layer gets changed, all the layers above them are rebuilt. So, application code changes often however, dependencies won't change much. Moreover, building the dependencies takes more time during the building process. Downloading and Installation of all the required dependencies is done using the command pip3 install. The source code is copied to the container and “CMD \[ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]”This line specifically instructs Docker to run our Flask app as a module, as indicated by the "-m" tag. Then it instructs Docker to make the container available externally, such as from our browser, rather than just from within the container. We pass the host port as 0.0.0.0
 
-5. Jenkinsfile contains 
+5. Jenkinsfile contains two environment variables (Docker Repository name and Docker Hub Credentials). It has 5 Stages.
+*  build checkout: At this stage, the code is pulled from the Github Repository from the main branch. Syntax is created from the Pipeline Syntax generator in Jenkins UI 
+*  build image: Docker build is used to build the image. This will use the Above Dockerfile and creates all the layers
+*  Login: Logged in to the Docker Hub 
+*  Push: Pushed the build image to the DockerHub repository
+*  Deploy: Ran the docker container in the port 5000. 
+
 ```
 def img
 pipeline {
@@ -119,12 +125,10 @@ After connect to instance
 ```
 sudo apt update
 ```
-2.  Below Command is used to install Docker
+2.  Below Command is used to install Docker. -y for denoting yes
 ```
 sudo apt install docker.io -y
 ```
-     
-   -y for denoting yes
 
 3. Check whether Docker was properly installed by running the status command or checking the program version. To see the Docker daemon status, run:
 
@@ -168,32 +172,19 @@ docker
 ```
  ps -ef | grep jenkins
 ```
-5. Modify firewall by allowing port 8080 for jenkins:
-```
- sudo ufw allow 8080
-
- sudo ufw status
-```
-
-  ![](https://lh3.googleusercontent.com/WEUZxI8rL4Qb9ggPkd9v3aG6Ylnnw8ArfAs4-cpcsw_flTvy-BCedbvxlgvAD1_xMNaXdbYwBdhA5hDvMB3WtoUjG3dC4VZ72uaSz5OW4FlYCqcJU5-fNSw4UsjF7_VvOOY7iLG6EK8e2oohsxXRQFhxFLVE4dVWGxe0JESbjGtM4PHguA54KlXCd_wxgw)
-```
-sudo ufw enable
-```
-
-  ![](https://lh3.googleusercontent.com/y1vSDB9M-aJlTbnEbNMIBaa7tsm4KO7Tpj-di7MQZcBKUmdW-  NWFDaOIpf3OGWh6fz0IM97F54eoPxSrNHnBe_gv0N2BCgpqt-LmOyKVmJRxv__kMS6Rh5fEtVFRiYM1fwrw7FcUg87TLVdEwgNxhEo_k7JU_2ic4xFtvnEKp55qvSqObfw_cQQXzTTzeA)
- 6. Open a browser and Navigate to your server ip use the following syntax:    
+5. Open a browser and Navigate to your server ip use the following syntax:    
  ``` 
   <http://ip_address_or_domain:8080> 
  ```
  ![](https://lh4.googleusercontent.com/3EHSI2Xr4zA5C7Wt4FXJI0cg9RFjO7EKhwVtmhKFW37XcJtHEseupEewCTl7qLc66olmzhWgJT4uM5lC4OynQUMr_Lfvfqa5e6gNCMLtpdcn5xUUXzoezqNwLmdillyN52mi-yGUHLvSRKGYRGU7oG_20P_FDH10cp0rsCvH0LH4nom7uH8mYI-dk3b9ZA)
- 7. Use this command in terminal:
+ 6. Below command is used in terminal to get the passord for Jenkins:
  ```
  sudo cat /var/lib/jenkins/secrets/initialAdminPassword 
  ```
  then copy the text and paste here then click continue
  
  ![](https://lh3.googleusercontent.com/jct3mO2QA1crVnvsfoS0CtXd_nwqRWuoT9x1Cba9NI5MOi3Y8W1U0cf53pGfp9bQs4KbrxGcqx-tkWYZrE1dYyh3XQnCqUYRTLy6QOe-44L-pI0z-OPkvMHuqBRoPQK3e-zU8FvMInCKLxXDSAhVsed5oUWDXkgy7Xp3UKbduPikvXXtas8-CFYWxeXTmw)
- 8. Select install suggested plugins and click continue then Provide the detials 
+ 8. Select install suggested plugins and click continue then Provide the details 
 ![](https://lh6.googleusercontent.com/dzw37YEI_49NzOiUEtygfplMaooH9CCh3_sGFXwigV7QtNpWi6FmobWQYXwaO8c9Bju0cwR1Rx2Udcd3tNku3oBekhIIwkwnKAMxJFcagxPdwy2a4gK_jnctU8Glt3fIFpz26-LjgUYbpx4v1soYEN9wtByTa1jv3p5Bns_gJbkvHnBhXheINVUWjJMOsQ)
  9. Click save and continue 
 
@@ -237,10 +228,14 @@ sudo ufw enable
 
 ![](https://lh3.googleusercontent.com/G0sR1yP8Ny_jmcXScs2b0K3UIoOQFJ57TMLLMLkU3qf1DTvPtHBTLniqiod34InoYVeI-Af8JFu_ZvtVxmTtGWFPWhuU3kYpkpOgsylLAny_JXfZAf0ahm4uUdQ3KmIOTyPzx-Q33v1bES_WsgH9RkZGZglp62by_5aPW6tg6jWC8hUKh64JYW8HDq5ckA)
 
-9. Deployed output                 ![](https://lh4.googleusercontent.com/Ht3jgugdZ5WGODP1oL_Xi8HTJbazUEt57A3xW_UV2AimcNQj6NhlcTmRDKaxtUHLV08uSfO4efXX4kri03vbh64NCEXfrqLenyH3RfjxV2ObOlmZrdtsOZ2qGInTLfJETYHBuHrHcVCbKjlu3QiQsw9coy_IXx92kINmhdYT39Ldm07SYaj4IWMReEC0pA)
-10. Application is working 
+9. Deployed output
+                 ![](https://lh4.googleusercontent.com/Ht3jgugdZ5WGODP1oL_Xi8HTJbazUEt57A3xW_UV2AimcNQj6NhlcTmRDKaxtUHLV08uSfO4efXX4kri03vbh64NCEXfrqLenyH3RfjxV2ObOlmZrdtsOZ2qGInTLfJETYHBuHrHcVCbKjlu3QiQsw9coy_IXx92kINmhdYT39Ldm07SYaj4IWMReEC0pA)
+11. Application is working 
 
-### Refence:
+### DockerHub Repository Link: 
+
+https://hub.docker.com/repository/docker/hameedakshal/projectguvi/general
+### Reference:
 Python Flask App : https://www.freecodecamp.org/news/how-to-dockerize-a-flask-app/
 
 Docker Installation Link: https://phoenixnap.com/kb/install-docker-on-ubuntu-20-04
@@ -248,7 +243,5 @@ Docker Installation Link: https://phoenixnap.com/kb/install-docker-on-ubuntu-20-
 Jenkins Installation Link: https://pkg.jenkins.io/debian-stable/
 
 
-### DockerHub: 
 
-https://hub.docker.com/repository/docker/hameedakshal/projectguvi/general
 
