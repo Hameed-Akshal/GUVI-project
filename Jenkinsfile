@@ -41,5 +41,13 @@ pipeline {
 		}
 	    }
 	}
+
+	stage('Deploy'){
+	    steps{
+		script{
+		     sh "docker run -d -p 5000:5000 ${img}"
+		}
+	    }
+	}
     }
 }
