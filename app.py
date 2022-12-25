@@ -1,9 +1,10 @@
 from flask import Flask
-
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    return 'Hello GUVI GEEK'
+def hello_geek():
+    return '<h1>Hello from Flask & Docker</h2>'
 
-app.run(host='0.0.0.0', port=80)
+
+if __name__ == "__main__":
+    app.run(debug=True)
