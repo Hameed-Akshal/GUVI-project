@@ -189,6 +189,10 @@ docker
 
 ![](https://lh5.googleusercontent.com/ru965-HO9d5Cv5YfzbvRm_6apkZiFnGmQeUfUdfmHLlCExLJWOxwsbO0h1uim2GidLx69XQX2zJpgFejuSO1lKec-ggZvKTHmEnepVVqiD3vtz_1Gdcu0xBvxJNTRJ5fvcPs8QvimoqFrjp7Vq-Un7uf1thznBukVIVFHuIdLJNKwVqu6KlawHnRsLYYQQ)
 
+10. Below command is used in terminal to allow jenkins to access docker
+```
+sudo chmod 666 /var/run/docker.sock
+```
 
 ### Build pipeline
 
