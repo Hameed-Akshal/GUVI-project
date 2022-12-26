@@ -115,8 +115,7 @@ pipeline {
 	![](https://lh3.googleusercontent.com/wqbsjHgQkxIAazk9y09IFWgH_3advkCEt-3ehCjRBO1mwEYvBK0XM0Vle9AcHTYvxi9zwm7yNtbH41--VYrUjCrek_k-LmMbFzJfz_S04XljvO5qzr-m8zWOnAZ5oYZ3CGBlQw_bnexQVb6PcTONGRG1c0CRT1Jjo574K5gdXzTaADbso3boNlej0BA9_g)
 
 	6\. Then connect the instance using instance connect or through ssh           ![](https://lh5.googleusercontent.com/0svQmeADYlUwK6yHMwKMpaApzyAdX0HjcCc14FT4-pRnyptX0picKziPCUkeOPjkzqivMZ2jrnFT_RO1FGf5mmpmtNIF0CxkPzQxuLCMpVd6VGmt27ZWGw6mQjtWKwLyuHlUxYp2Hdb-xHnPbw9WrhANf8otSzrgpYaphbJEUnde5E4gcAVz646uSbihaA)
-
-After connect to instance
+        7\. After connect to instance then in security groups allow port 8080 for jenkins and 5000 for flask app 
 
 
 ## Installing docker
