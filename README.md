@@ -232,7 +232,8 @@ sudo chmod 666 /var/run/docker.sock
 ![](https://lh3.googleusercontent.com/G0sR1yP8Ny_jmcXScs2b0K3UIoOQFJ57TMLLMLkU3qf1DTvPtHBTLniqiod34InoYVeI-Af8JFu_ZvtVxmTtGWFPWhuU3kYpkpOgsylLAny_JXfZAf0ahm4uUdQ3KmIOTyPzx-Q33v1bES_WsgH9RkZGZglp62by_5aPW6tg6jWC8hUKh64JYW8HDq5ckA)
 
 9. Deployed output
-                 ![](https://lh4.googleusercontent.com/Ht3jgugdZ5WGODP1oL_Xi8HTJbazUEt57A3xW_UV2AimcNQj6NhlcTmRDKaxtUHLV08uSfO4efXX4kri03vbh64NCEXfrqLenyH3RfjxV2ObOlmZrdtsOZ2qGInTLfJETYHBuHrHcVCbKjlu3QiQsw9coy_IXx92kINmhdYT39Ldm07SYaj4IWMReEC0pA)
+                                
+	![](https://lh4.googleusercontent.com/Ht3jgugdZ5WGODP1oL_Xi8HTJbazUEt57A3xW_UV2AimcNQj6NhlcTmRDKaxtUHLV08uSfO4efXX4kri03vbh64NCEXfrqLenyH3RfjxV2ObOlmZrdtsOZ2qGInTLfJETYHBuHrHcVCbKjlu3QiQsw9coy_IXx92kINmhdYT39Ldm07SYaj4IWMReEC0pA)
 11. Application is working 
 
 ### DockerHub Repository Link: 
